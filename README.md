@@ -1,5 +1,5 @@
 # react-native-video-player
-React Native Video Player
+React Native Video Player with Controllers
 
 Sample project for playing videos with video controllers on android. 
 The progess bar of the video is implemented using `Animated.View` and `Pan Handlers`.
