@@ -94,13 +94,17 @@ class ProgressController extends Component {
 
     render() {
         let {moving} = this.state;
-        let {currentTime, duration} = this.props;
+        let {currentTime, duration, percent} = this.props;
         return <View style={styles.view}>
             <Text style={[styles.timeText, {marginRight: 10}]}>{this.formatSeconds(currentTime)}</Text>
             <View style={styles.barView}
                   onLayout={this.onLayout.bind(this)} {...this.holderPanResponder.panHandlers}>
-                <TouchableOpacity style={[styles.line, {top: moving ? radiusOfActiveHolder : radiusOfHolder}]}
-                      onPress={this.onLinePressed.bind(this)}/>
+                <View style={{flex: 1, flexDirection: "row", top: moving ? radiusOfActiveHolder : radiusOfHolder}}>
+                    <TouchableOpacity style={[styles.line, {flex: percent, borderColor: "blue"}]}
+                                      onPress={this.onLinePressed.bind(this)}/>
+                    <TouchableOpacity style={[styles.line, {flex: 100 - percent, borderColor: "white"}]}
+                                      onPress={this.onLinePressed.bind(this)}/>
+                </View>
                 <Animated.View style={this.getHolderStyle()}/>
             </View>
             <Text style={[styles.timeText, {marginLeft: 10}]}>{this.formatSeconds(duration)}</Text>
@@ -113,7 +117,7 @@ let styles = StyleSheet.create({
     view: {flex: 1, flexDirection: "row", height, alignItems: "center"},
     barView: {flex: 1},
     timeText: {color: "white"},
-    line: {borderWidth: 1, borderColor: "white", padding: 0},
+    line: {borderWidth: 1, padding: 0},
     holder: {
         height: radiusOfHolder * 2,
         width: radiusOfHolder * 2,
