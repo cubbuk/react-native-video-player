@@ -33,7 +33,6 @@ class ProgressController extends Component {
                 slideX.setValue(0);
             },
             onPanResponderMove: (e, gestureState) => {
-                let locationX = e.nativeEvent.locationX;
                 let totalX = this.state.slideX._offset + gestureState.dx;
                 let newPercent = (totalX / this.state.width) * 100;
                 this.notifyPercentChange(newPercent, true);
