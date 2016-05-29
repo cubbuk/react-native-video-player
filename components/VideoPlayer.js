@@ -56,7 +56,6 @@ class VideoPlayer extends Component {
     onProgressChanged(newPercent, paused) {
         let {duration} = this.state;
         let newTime = newPercent * duration / 100;
-        console.log(newPercent, newTime);
         this.setState({currentTime: newTime, paused: paused});
         this.videoPlayer.seek(newTime);
     }
@@ -66,6 +65,11 @@ class VideoPlayer extends Component {
         let {currentTime, duration, paused} = this.state;
         const completedPercentage = this.getCurrentTimePercentage(currentTime, duration) * 100;
         return <View style={styles.fullScreen} key={this.state.key}>
+            <View style={[styles.cancelButton]}>
+                <TouchableOpacity onPress={onClosePressed} style={{alignItems: "flex-end"}}>
+                    <Image source={require("../assets/images/close.png")}/>
+                </TouchableOpacity>
+            </View>
             <TouchableOpacity style={styles.videoView}
                          onPress={this.playOrPauseVideo.bind(this, paused)}>
                 <Video ref={videoPlayer => this.videoPlayer = videoPlayer}
