@@ -69,7 +69,6 @@ class ProgressController extends Component {
                 outputRange: [0, width],
                 extrapolate: "clamp"
             });
-            //{transform: pan.getTranslateTransform()} transform without interpolation
             return [styles.holder, moving && styles.activeHolder,
                 {transform: [{translateX: interpolatedAnimation}]}
             ];
