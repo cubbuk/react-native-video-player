@@ -61,7 +61,7 @@ class VideoPlayer extends Component {
     }
 
     render() {
-        let {onClosePressed, video} = this.props;
+        let {onClosePressed, video, volume} = this.props;
         let {currentTime, duration, paused} = this.state;
         const completedPercentage = this.getCurrentTimePercentage(currentTime, duration) * 100;
         return <View style={styles.fullScreen} key={this.state.key}>
@@ -78,7 +78,7 @@ class VideoPlayer extends Component {
                        onProgress={this.onProgress.bind(this)}
                        source={{uri:video.uri}}
                        paused={paused}
-                       volume={0}
+                       volume={Math.max(Math.min(1, volume), 0)}
                        resizeMode="contain"
                        style={styles.videoContainer}/>
                 {paused &&
@@ -136,6 +136,7 @@ let styles = StyleSheet.create({
 
 VideoPlayer.propTypes = {
     video: PropTypes.object.isRequired,
+    volume: PropTypes.number,
     onClosePressed: PropTypes.func.isRequired
 };
 
